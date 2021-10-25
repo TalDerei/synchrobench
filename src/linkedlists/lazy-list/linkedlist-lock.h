@@ -31,6 +31,7 @@
 #include <sys/time.h>
 #include <time.h>
 #include <stdint.h>
+#include <memory>
 
 #include <atomic_ops.h>
 
@@ -75,18 +76,22 @@ typedef pthread_spinlock_t ptlock_t;
 
 typedef struct node_l {
   val_t val;
-  struct node_l *next;
+  //struct node_l *next;
+  std::shared_ptr<node_l> next;
   volatile ptlock_t lock;
 } node_l_t;
 
 typedef struct intset_l {
-  node_l_t *head;
+  //node_l_t *head;
+  std::shared_ptr<node_l_t> head;
 } intset_l_t;
 
-node_l_t *new_node_l(val_t val, node_l_t *next, int transactional);
+//node_l_t *new_node_l(val_t val, node_l_t *next, int transactional);
+std::shared_ptr<node_l_t>new_node_l(val_t val, std::shared_ptr<node_l_t> next, int transactional);
 intset_l_t *set_new_l();
-void set_delete_l(intset_l_t *set);
+//void set_delete_l(intset_l_t *set);
 int set_size_l(intset_l_t *set);
-void node_delete_l(node_l_t *node);
+//void node_delete_l(node_l_t *node);
+//void node_delete_l(std::shared_ptr<node_l_t> node);
 
 

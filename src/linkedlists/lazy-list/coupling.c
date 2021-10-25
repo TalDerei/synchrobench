@@ -28,78 +28,84 @@
  * Lock the first two elements (locking each before getting the copy of the element)
  * then unlock previous, keep ownership of the current, and lock next in a loop.
  */
-int lockc_delete(intset_l_t *set, val_t val) {
-	node_l_t *curr, *next;
-	int found;
-	
-	LOCK(&set->head->lock);
-	curr = set->head;
-	LOCK(&curr->next->lock);
-	next = curr->next;
-	
-	while (next->val < val) {
-		UNLOCK(&curr->lock);
-		curr = next;
-		LOCK(&next->next->lock);
-		next = next->next;
-	}
-	found = (val == next->val);
-	if (found) {
-	  curr->next = next->next;
-	  UNLOCK(&next->lock);
-	  node_delete_l(next);
-	  UNLOCK(&curr->lock);
-	} else {
-	  UNLOCK(&curr->lock);
-	  UNLOCK(&next->lock);
-	}
-	return found;
-}
+//int lockc_delete(intset_l_t *set, val_t val) {
+//	//node_l_t *curr, *next;
+//    std::shared_ptr<node_l_t> curr, next;
+//	int found;
+//
+//	LOCK(&set->head->lock);
+//	curr = set->head;
+//	LOCK(&curr->next->lock);
+//	next = curr->next;
+//
+//	while (next->val < val) {
+//		UNLOCK(&curr->lock);
+//		curr = next;
+//		LOCK(&next->next->lock);
+//		next = next->next;
+//	}
+//	found = (val == next->val);
+//	if (found) {
+//	  curr->next = next->next;
+//	  UNLOCK(&next->lock);
+//	  node_delete_l(next);
+//	  UNLOCK(&curr->lock);
+//	} else {
+//	  UNLOCK(&curr->lock);
+//	  UNLOCK(&next->lock);
+//	}
+//	return found;
+//}
 
-int lockc_find(intset_l_t *set, val_t val) {
-	node_l_t *curr, *next; 
-	int found;
-	
-	LOCK(&set->head->lock);
-	curr = set->head;
-	LOCK(&curr->next->lock);
-	next = curr->next;
-	
-	while (next->val < val) {
-		UNLOCK(&curr->lock);
-		curr = next;
-		LOCK(&next->next->lock);
-		next = curr->next;
-	}	
-	found = (val == next->val);
-	UNLOCK(&curr->lock);
-	UNLOCK(&next->lock);
-	return found;
-}
+//int lockc_find(intset_l_t *set, val_t val) {
+//	//node_l_t *curr, *next;
+//    std::shared_ptr<node_l_t> curr, next;
+//	int found;
+//
+//	LOCK(&set->head->lock);
+//	curr = set->head;
+//	LOCK(&curr->next->lock);
+//	next = curr->next;
+//
+//	while (next->val < val) {
+//		UNLOCK(&curr->lock);
+//		curr = next;
+//		LOCK(&next->next->lock);
+//		next = curr->next;
+//	}
+//	found = (val == next->val);
+//	UNLOCK(&curr->lock);
+//	UNLOCK(&next->lock);
+//	return found;
+//}
 
-int lockc_insert(intset_l_t *set, val_t val) {
-	node_l_t *curr, *next, *newnode;
-	int found;
-	
-	LOCK(&set->head->lock);
-	curr = set->head;
-	LOCK(&curr->next->lock);
-	next = curr->next;
-	
-	while (next->val < val) {
-		
-		UNLOCK(&curr->lock);
-		curr = next;
-		LOCK(&next->next->lock);
-		next = curr->next;
-		
-	}
-	found = (val == next->val);
-	if (!found) {
-		newnode =  new_node_l(val, next, 0);
-		curr->next = newnode;
-	}
-	UNLOCK(&curr->lock);
-	UNLOCK(&next->lock);
-	return !found;
-}
+//int lockc_insert(intset_l_t *set, val_t val) {
+//	//node_l_t *curr, *next, *newnode;
+//    node_l_t *newnode;
+//    std::shared_ptr<node_l_t> curr, next;
+//	int found;
+//
+//	LOCK(&set->head->lock);
+//	curr = set->head;
+//	LOCK(&curr->next->lock);
+//	next = curr->next;
+//
+//	while (next->val < val) {
+//
+//		UNLOCK(&curr->lock);
+//		curr = next;
+//		LOCK(&next->next->lock);
+//		next = curr->next;
+//
+//	}
+//	found = (val == next->val);
+//	if (!found) {
+//		//newnode =  new_node_l(val, next, 0);
+//        //curr->next = newnode;
+//        //newnode =  new_node_l(val, next.get(), 0);
+//        curr->next = std::shared_ptr<node_l_t>(newnode);
+//	}
+//	UNLOCK(&curr->lock);
+//	UNLOCK(&next->lock);
+//	return !found;
+//}
