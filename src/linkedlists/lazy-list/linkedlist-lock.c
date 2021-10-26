@@ -35,11 +35,11 @@ std::shared_ptr<node_l_t> new_node_l(val_t val, std::shared_ptr<node_l_t> next, 
   //  exit(1);
   //}
   std::shared_ptr<node_l_t> node_l = std::make_shared<node_l_t>();
-  printf("new node\n");
 
-  node_l->val = val;
-  node_l->next = next;
   INIT_LOCK(&node_l->lock);
+  node_l->val = val;
+  node_l->next = std::move(next);
+  node_l->marked.store(false, std::__1::memory_order_seq_cst);
   return node_l;
 }
 
@@ -53,12 +53,9 @@ intset_l_t *set_new_l()
     perror("malloc");
     exit(1);
   }
-  printf("set_new_l before!\n");
   //max = new_node_l(VAL_MAX, NULL, 0);
   max = new_node_l(VAL_MAX, nullptr, 0);
-  printf("set_new_l (max)!\n");
   min = new_node_l(VAL_MIN, max, 0);
-  printf("set_new_l (min)!\n");
   set->head = min;
   return set;
 }
@@ -100,10 +97,6 @@ int set_size_l(intset_l_t *set)
     size++;
     node = node->next;
   }
-
   return size;
 }
 
-
-
-	

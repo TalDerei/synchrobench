@@ -32,9 +32,8 @@ int set_contains_l(intset_l_t *set, val_t val, int transactional)
 
 int set_add_l(intset_l_t *set, val_t val, int transactional)
 {  
-	//if (transactional == 2) return parse_insert(set, val);
-	//else return lockc_insert(set, val);
-    return parse_insert(set, val);
+	if (transactional == 2) return parse_insert(set, val);
+	else return lockc_insert(set, val);
 }
 
 int set_remove_l(intset_l_t *set, val_t val, int transactional)
