@@ -105,34 +105,34 @@ int parse_insert(intset_l_t *set, val_t val) {
  * free the memory.
  */
 int parse_delete(intset_l_t *set, val_t val) {
-    /** pred and curr -- pointers to node_l_t struct */
+	/** pred and curr -- pointers to node_l_t struct */
 	node_l_t *pred, *curr;
 	int result, validated, isVal;
 	while(1) {
-        /** set 'pred' to the head of the set */
+		/** set 'pred' to the head of the set */
 		pred = set->head;
-        /** set 'curr' to NOT be logically deleted, pointing to 'pred->next' */
+		/** set 'curr' to NOT be logically deleted, pointing to 'pred->next' */
 		curr = get_unmarked_ref(pred->next);
-        /* iterate through the entire set until we reach 'val'*/
+		/* iterate through the entire set until we reach 'val'*/
 		while (curr->val < val) {
 			pred = curr;
 			curr = get_unmarked_ref(curr->next);
 		}
-        /** lock 'pred' and 'curr' */
+		/** lock 'pred' and 'curr' */
 		LOCK(&pred->lock);
 		LOCK(&curr->lock);
-        /** validation checkpoint */
+		/** validation checkpoint */
 		validated = parse_validate(pred, curr);
-        /** checking whether val exists and is valid */
+		/** checking whether val exists and is valid */
 		isVal = val == curr->val;
 		result = validated && isVal;
 		if (result) {
-            /** marking 'curr' as logically deleted */
+			/** marking 'curr' as logically deleted */
 			curr->next = get_marked_ref(curr->next);
-            /** physical deletion */
+			/** physical deletion */
 			pred->next = get_unmarked_ref(curr->next);
-            /** free 'curr' and set memory location to NULL */
-            free(curr);
+			/** free 'curr' and set memory location to NULL */
+			free(curr);
 		}
 		UNLOCK(&curr->lock);
 		UNLOCK(&pred->lock);

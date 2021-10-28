@@ -59,12 +59,10 @@ intset_l_t *set_new_l()
 int set_size_l(intset_l_t *set)
 {
   int size = 0;
-  //node_l_t *node;
   std::shared_ptr<node_l_t> node;
 
   /* We have at least 2 elements */
   node = set->head->next;
-  //while (node->next != NULL) {
   while (node->next != nullptr) {
     size++;
     node = node->next;

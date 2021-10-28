@@ -68,7 +68,7 @@ inline int parse_validate(std::shared_ptr<node_l_t> &pred, std::shared_ptr<node_
 
 int parse_find(intset_l_t *set, val_t val) {
 	/** curr is smart pointer to node_l_t structs */
-    std::shared_ptr<node_l_t> curr;
+	std::shared_ptr<node_l_t> curr;
 	/** atomically load head of set */
 	curr = std::atomic_load(&set->head);
 	while (curr->val < val)
@@ -78,7 +78,7 @@ int parse_find(intset_l_t *set, val_t val) {
 
 int parse_insert(intset_l_t *set, val_t val) {
 	/** pred, curr, and newnode are smart pointers to node_l_t structs */
-    std::shared_ptr<node_l_t> newnode, curr, pred;
+	std::shared_ptr<node_l_t> newnode, curr, pred;
 	int result, validated, notVal;
 	
 	while (1) {
@@ -138,9 +138,9 @@ int parse_delete(intset_l_t *set, val_t val) {
 		result = validated && isVal;
 		if (result) {
 			/** mark curr->next as true */
-            curr->marked.store(true, std::memory_order_seq_cst);
+			curr->marked.store(true, std::memory_order_seq_cst);
 			/* attomically stored pred->next as curr->nexy */
-            std::atomic_store(&pred->next, curr->next);
+			std::atomic_store(&pred->next, curr->next);
 		}
 		/** unlock pred and curr */
 		UNLOCK(&curr->lock);
