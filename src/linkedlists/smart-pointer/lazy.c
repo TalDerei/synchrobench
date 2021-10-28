@@ -49,6 +49,7 @@ inline node_l_t *get_marked_ref(node_l_t *n) {
 	return (node_l_t *) set_mark((long) n);
 }
 
+/* custom "marking" function for marking nodes as logically deleted */
 inline bool marked_node(std::shared_ptr<node_l_t> &node) {
     if (node != nullptr) {
         return node->marked.load(std::memory_order_seq_cst);
@@ -61,13 +62,14 @@ inline bool marked_node(std::shared_ptr<node_l_t> &node) {
  * Checking that both curr and pred are both unmarked and that pred's next pointer
  * points to curr to verify that the entries are adjacent and present in the list.
  */
-//inline int parse_validate(node_l_t *pred, node_l_t *curr) {
 inline int parse_validate(std::shared_ptr<node_l_t> &pred, std::shared_ptr<node_l_t> &curr) {
     return !marked_node(pred) && !marked_node(curr) && (pred->next == curr);
 }
 
 int parse_find(intset_l_t *set, val_t val) {
+	/** curr is smart pointer to node_l_t structs */
     std::shared_ptr<node_l_t> curr;
+	/** atomically load head of set */
 	curr = std::atomic_load(&set->head);
 	while (curr->val < val)
         curr = std::atomic_load(&curr->next);
@@ -75,10 +77,12 @@ int parse_find(intset_l_t *set, val_t val) {
 }
 
 int parse_insert(intset_l_t *set, val_t val) {
+	/** pred, curr, and newnode are smart pointers to node_l_t structs */
     std::shared_ptr<node_l_t> newnode, curr, pred;
 	int result, validated, notVal;
 	
 	while (1) {
+		/** atomically load in pred and curr */
 		pred = std::atomic_load(&set->head);
 		curr = std::atomic_load(&pred->next);
 		while (curr->val < val) {
@@ -91,7 +95,6 @@ int parse_insert(intset_l_t *set, val_t val) {
 		notVal = (curr->val != val);
 		result = (validated && notVal);
 		if (result) {
-            //newnode = new_node_l(val, curr, 0);
             newnode = new_node_l(val, pred->next, 0);
 			std::atomic_store(&pred->next, newnode);
 		}
@@ -112,24 +115,34 @@ int parse_insert(intset_l_t *set, val_t val) {
  * free the memory.
  */
 int parse_delete(intset_l_t *set, val_t val) {
+	/** pred and curr are smart pointers to node_l_t structs */
 	std::shared_ptr<node_l_t> pred, curr;
+
 	int result, validated, isVal;
 	while (1) {
+		/** atomically load in the head node */
 		pred = std::atomic_load(&set->head);
+		/** atomically load the next pointer of the head node */
 		curr = std::atomic_load(&pred->next);
 		while (curr->val < val) {
+			/** atomically load curr and curr->next */
 			pred = std::atomic_load(&curr);
 			curr = std::atomic_load(&curr->next);
 		}
+		/** lock pred and curr */
 		LOCK(&pred->lock);
 		LOCK(&curr->lock);
+		/** validate pred and curr */
 		validated = parse_validate(pred, curr);
 		isVal = val == curr->val;
 		result = validated && isVal;
 		if (result) {
+			/** mark curr->next as true */
             curr->marked.store(true, std::memory_order_seq_cst);
+			/* attomically stored pred->next as curr->nexy */
             std::atomic_store(&pred->next, curr->next);
 		}
+		/** unlock pred and curr */
 		UNLOCK(&curr->lock);
 		UNLOCK(&pred->lock);
 		if(validated) {

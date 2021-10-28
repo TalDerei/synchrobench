@@ -75,24 +75,30 @@ typedef pthread_spinlock_t ptlock_t;
 #  define UNLOCK(lock)					pthread_spin_unlock((pthread_spinlock_t *) lock)
 #endif
 
+/** node struct */
 typedef struct node_l {
+  /** value in set */
   val_t val;
+
+  /** next is a smart pointr of type node_l */
   std::shared_ptr<node_l> next;
+
+  /** replace "bit stealing" mechanism with a normal boolean "mark" field in the Node struct */
   std::atomic<bool> marked;
+
+  /** lock of type ptlock_t */
   volatile ptlock_t lock;
 } node_l_t;
 
+/** set struct */
 typedef struct intset_l {
-  //node_l_t *head;
+  /** head of the set is a smart pointer */
   std::shared_ptr<node_l_t> head;
 } intset_l_t;
 
-//node_l_t *new_node_l(val_t val, node_l_t *next, int transactional);
+/** create and malloc new node in the set */
 std::shared_ptr<node_l_t>new_node_l(val_t val, std::shared_ptr<node_l_t> next, int transactional);
 intset_l_t *set_new_l();
-//void set_delete_l(intset_l_t *set);
 int set_size_l(intset_l_t *set);
-//void node_delete_l(node_l_t *node);
-//void node_delete_l(std::shared_ptr<node_l_t> node);
 
 

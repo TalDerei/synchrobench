@@ -522,13 +522,13 @@ int main(int argc, char **argv)
   printf("  #inv-mem    : %lu (%f / s)\n", aborts_invalid_memory, aborts_invalid_memory * 1000.0 / duration);
   printf("Max retries   : %lu\n", max_retries);
 	
-  /* Delete set */
-  //set_delete_l(set);
+  /* delete set */
   set->head.reset();
   free(set);
 
+  /** free threads and data */
   free(threads);
-  //free(data);
+  free(data);
 	
   return 0;
 }

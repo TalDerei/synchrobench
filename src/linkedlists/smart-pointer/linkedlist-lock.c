@@ -24,65 +24,37 @@
 #include "intset.h"
 #include <memory>
 
-//node_l_t *new_node_l(val_t val, node_l_t *next, int transactional)
-std::shared_ptr<node_l_t> new_node_l(val_t val, std::shared_ptr<node_l_t> next, int transactional)
+/** new_node_l allocates new node as shared_ptr */
+std::shared_ptr<node_l_t> new_node_l(val_t val, std::shared_ptr<node_l_t> next, int transactional) 
 {
-  //node_l_t *node_l;
-
-  //node_l = (node_l_t *)malloc(sizeof(node_l_t));
-  //if (node_l == NULL) {
-  //  perror("malloc");
-  //  exit(1);
-  //}
+  /** make_shared is shared_ptr's version of malloc: creates a shared pointer that manages a new object */
   std::shared_ptr<node_l_t> node_l = std::make_shared<node_l_t>();
-
+  if (node_l == nullptr) {
+    perror("malloc");
+    exit(1);
+  }
   INIT_LOCK(&node_l->lock);
   node_l->val = val;
   node_l->next = std::move(next);
-  node_l->marked.store(false, std::__1::memory_order_seq_cst);
+  node_l->marked.store(false, std::memory_order_seq_cst);
   return node_l;
 }
 
+/** set_new_l allocates new set, and head of the set is a shared_ptr */
 intset_l_t *set_new_l()
 {
   intset_l_t *set;
-  //node_l_t *min, *max;
   std::shared_ptr<node_l_t> min, max;
 
   if ((set = (intset_l_t *)malloc(sizeof(intset_l_t))) == NULL) {
     perror("malloc");
     exit(1);
   }
-  //max = new_node_l(VAL_MAX, NULL, 0);
   max = new_node_l(VAL_MAX, nullptr, 0);
   min = new_node_l(VAL_MIN, max, 0);
   set->head = min;
   return set;
 }
-
-//void node_delete_l(node_l_t *node) {
-//void node_delete_l(std::shared_ptr<node_l_t> node) {
-//   DESTROY_LOCK(&node->lock);
-//   //free(node);
-//   node.reset();
-//}
-
-//void set_delete_l(intset_l_t *set)
-//{
-//  //node_l_t *node, *next;
-//  std::shared_ptr<node_l_t> node, next;
-//
-//  node = set->head;
-//  //while (node != NULL) {
-//  while (node != nullptr) {
-//    next = node->next;
-//    DESTROY_LOCK(&node->lock);
-//    //free(node);
-//    node.reset();
-//    node = next;
-//  }
-//  free(set);
-//}
 
 int set_size_l(intset_l_t *set)
 {

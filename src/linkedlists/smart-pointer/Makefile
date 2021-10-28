@@ -2,7 +2,7 @@ ROOT = ../../..
 
 include $(ROOT)/common/Makefile.common
 
-BINS = $(BINDIR)/$(LOCK)-lazy-list
+BINS = $(BINDIR)/smart-pointer-lazy-list
 #CFLAGS += -std=gnu89
 C++ = g++
 
