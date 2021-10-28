@@ -364,7 +364,7 @@ int main(int argc, char **argv)
     srand((int)time(0));
   else
     srand(seed);
-	
+
   set = set_new_l();
 	
   stop = 0;
@@ -384,7 +384,8 @@ int main(int argc, char **argv)
   }
   size = set_size_l(set);
   printf("Set size     : %d\n", size);
-	
+
+
   /* Access set from all threads */
   barrier_init(&barrier, nb_threads + 1);
   pthread_attr_init(&attr);
@@ -421,10 +422,10 @@ int main(int argc, char **argv)
     }
   }
   pthread_attr_destroy(&attr);
-	
+
   /* Start threads */
   barrier_cross(&barrier);
-	
+
   printf("STARTING...\n");
   gettimeofday(&start, NULL);
   if (duration > 0) {
@@ -436,7 +437,7 @@ int main(int argc, char **argv)
   AO_store_full(&stop, 1);
   gettimeofday(&end, NULL);
   printf("STOPPING...\n");
-	
+
   /* Wait for thread completion */
   for (i = 0; i < nb_threads; i++) {
     if (pthread_join(threads[i], NULL) != 0) {
@@ -444,7 +445,7 @@ int main(int argc, char **argv)
       exit(1);
     }
   }
-	
+
   duration = (end.tv_sec * 1000 + end.tv_usec / 1000) - (start.tv_sec * 1000 + start.tv_usec / 1000);
   aborts = 0;
   aborts_locked_read = 0;
@@ -482,12 +483,12 @@ int main(int argc, char **argv)
     aborts_validate_commit += data[i].nb_aborts_validate_commit;
     aborts_invalid_memory += data[i].nb_aborts_invalid_memory;
     reads += data[i].nb_contains;
-    effreads += data[i].nb_contains + 
-      (data[i].nb_add - data[i].nb_added) + 
-      (data[i].nb_remove - data[i].nb_removed); 
+    effreads += data[i].nb_contains +
+      (data[i].nb_add - data[i].nb_added) +
+      (data[i].nb_remove - data[i].nb_removed);
     updates += (data[i].nb_add + data[i].nb_remove);
-    effupds += data[i].nb_removed + data[i].nb_added; 
-		
+    effupds += data[i].nb_removed + data[i].nb_added;
+
     //size += data[i].diff;
     size += data[i].nb_added - data[i].nb_removed;
     if (max_retries < data[i].max_retries)
@@ -496,22 +497,22 @@ int main(int argc, char **argv)
   printf("Set size      : %d (expected: %d)\n", set_size_l(set), size);
   printf("Duration      : %d (ms)\n", duration);
   printf("#txs          : %lu (%f / s)\n", reads + updates, (reads + updates) * 1000.0 / duration);
-	
+
   printf("#read txs     : ");
   if (effective) {
     printf("%lu (%f / s)\n", effreads, effreads * 1000.0 / duration);
     printf("  #contains   : %lu (%f / s)\n", reads, reads * 1000.0 / duration);
   } else printf("%lu (%f / s)\n", reads, reads * 1000.0 / duration);
-	
+
   printf("#eff. upd rate: %f \n", 100.0 * effupds / (effupds + effreads));
-	
+
   printf("#update txs   : ");
   if (effective) {
     printf("%lu (%f / s)\n", effupds, effupds * 1000.0 / duration);
-    printf("  #upd trials : %lu (%f / s)\n", updates, updates * 1000.0 / 
+    printf("  #upd trials : %lu (%f / s)\n", updates, updates * 1000.0 /
 	   duration);
   } else printf("%lu (%f / s)\n", updates, updates * 1000.0 / duration);
-	
+
   printf("#aborts       : %lu (%f / s)\n", aborts, aborts * 1000.0 / duration);
   printf("  #lock-r     : %lu (%f / s)\n", aborts_locked_read, aborts_locked_read * 1000.0 / duration);
   printf("  #lock-w     : %lu (%f / s)\n", aborts_locked_write, aborts_locked_write * 1000.0 / duration);
@@ -522,10 +523,12 @@ int main(int argc, char **argv)
   printf("Max retries   : %lu\n", max_retries);
 	
   /* Delete set */
-  set_delete_l(set);
-	
+  //set_delete_l(set);
+  set->head.reset();
+  free(set);
+
   free(threads);
-  free(data);
+  //free(data);
 	
   return 0;
 }

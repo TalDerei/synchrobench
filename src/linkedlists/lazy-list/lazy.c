@@ -51,7 +51,7 @@ inline node_l_t *get_marked_ref(node_l_t *n) {
 
 inline bool marked_node(std::shared_ptr<node_l_t> &node) {
     if (node != nullptr) {
-        return node->marked.load(std::__1::memory_order_seq_cst);
+        return node->marked.load(std::memory_order_seq_cst);
     } else {
         return false;
     }
@@ -71,7 +71,7 @@ int parse_find(intset_l_t *set, val_t val) {
 	curr = std::atomic_load(&set->head);
 	while (curr->val < val)
         curr = std::atomic_load(&curr->next);
-    return ((curr->val == val) && !curr->next->marked.load(std::__1::memory_order_seq_cst));
+    return ((curr->val == val) && !curr->next->marked.load(std::memory_order_seq_cst));
 }
 
 int parse_insert(intset_l_t *set, val_t val) {
@@ -127,9 +127,7 @@ int parse_delete(intset_l_t *set, val_t val) {
 		isVal = val == curr->val;
 		result = validated && isVal;
 		if (result) {
-            //curr->next = get_marked_ref(curr->next);
-            //pred->next = get_unmarked_ref(curr->next);
-            curr->marked.store(true, std::__1::memory_order_seq_cst);
+            curr->marked.store(true, std::memory_order_seq_cst);
             std::atomic_store(&pred->next, curr->next);
 		}
 		UNLOCK(&curr->lock);
