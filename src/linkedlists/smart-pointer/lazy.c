@@ -26,29 +26,6 @@
 
 #include "lazy.h"
 
-inline int is_marked_ref(long i) {
-	return (int) (i &= LONG_MIN+1);
-}
-
-inline long unset_mark(long i) {
-	i &= LONG_MAX-1;
-	return i;
-}
-
-inline long set_mark(long i) {
-	i = unset_mark(i);
-	i += 1;
-	return i;
-}
-
-inline node_l_t *get_unmarked_ref(node_l_t *n) {
-	return (node_l_t *) unset_mark((long) n);
-}
-
-inline node_l_t *get_marked_ref(node_l_t *n) {
-	return (node_l_t *) set_mark((long) n);
-}
-
 /* custom "marking" function for marking nodes as logically deleted */
 inline bool marked_node(std::shared_ptr<node_l_t> &node) {
     if (node != nullptr) {

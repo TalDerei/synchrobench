@@ -27,11 +27,7 @@
 #include "coupling.h"
 
 /* handling logical deletion flag */ 
-inline int is_marked_ref(long i);
-inline long unset_mark(long i);
-inline long set_mark(long i);
-inline node_l_t *get_unmarked_ref(node_l_t *n);
-inline node_l_t *get_marked_ref(node_l_t *n);
+inline bool marked_node(std::shared_ptr<node_l_t> &node);
 
 /* linked list accesses */
 int parse_validate(node_l_t *pred, node_l_t *curr);
