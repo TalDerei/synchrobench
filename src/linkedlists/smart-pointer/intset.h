@@ -23,8 +23,6 @@
 
 #include "lazy.h"
 
-inline bool marked_node(std::shared_ptr<node_l_t> &node) {
-
 int set_contains_l(intset_l_t *set, val_t val, int transactional);
 int set_add_l(intset_l_t *set, val_t val, int transactional);
 int set_remove_l(intset_l_t *set, val_t val, int transactional);
