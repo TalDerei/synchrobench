@@ -1,0 +1,86 @@
+Set type     : lazy linked list
+Length       : 10000
+Initial size : 4096
+Thread num   : 2
+Value range  : 8192
+Seed         : 0
+Update rate  : 50
+Lock alg     : 2
+Alternate    : 0
+Effective    : 1
+Type sizes   : int=4/long=8/ptr=8/word=8
+Initializing STM
+Adding 4096 entries to set
+Set size     : 4096
+Creating thread 0
+Creating thread 1
+STARTING...
+STOPPING...
+Thread 0
+  #add        : 18995
+    #added    : 9461
+  #remove     : 19040
+    #removed  : 9460
+  #contains   : 30
+  #found      : 14
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 1
+  #add        : 19277
+    #added    : 9660
+  #remove     : 19241
+    #removed  : 9659
+  #contains   : 202
+  #found      : 105
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Set size      : 4098 (expected: 4098)
+Duration      : 10000 (ms)
+#txs          : 76785 (7678.500000 / s)
+#read txs     : 38545 (3854.500000 / s)
+  #contains   : 232 (23.200000 / s)
+#eff. upd rate: 49.801394 
+#update txs   : 38240 (3824.000000 / s)
+  #upd trials : 76553 (7655.300000 / s)
+#aborts       : 0 (0.000000 / s)
+  #lock-r     : 0 (0.000000 / s)
+  #lock-w     : 0 (0.000000 / s)
+  #val-r      : 0 (0.000000 / s)
+  #val-w      : 0 (0.000000 / s)
+  #val-c      : 0 (0.000000 / s)
+  #inv-mem    : 0 (0.000000 / s)
+Max retries   : 0
+Process:         smart-pointer-lazy-list [61788]
+Path:            /Users/USER/Desktop/*/smart-pointer-lazy-list
+Load Address:    0x10e986000
+Identifier:      smart-pointer-lazy-list
+Version:         ???
+Code Type:       X86-64
+Parent Process:  leaks [61787]
+
+Date/Time:       2021-10-29 22:54:06.989 -0400
+Launch Time:     2021-10-29 22:53:56.715 -0400
+OS Version:      Mac OS X 10.15.7 (19H1419)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         1292K
+Physical footprint (peak):  1292K
+----
+
+leaks Report Version: 4.0
+Process 61788: 159 nodes malloced for 12 KB
+Process 61788: 0 leaks for 0 total leaked bytes.
+

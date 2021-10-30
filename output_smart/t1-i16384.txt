@@ -1,0 +1,70 @@
+Set type     : lazy linked list
+Length       : 10000
+Initial size : 16384
+Thread num   : 1
+Value range  : 32768
+Seed         : 0
+Update rate  : 50
+Lock alg     : 2
+Alternate    : 0
+Effective    : 1
+Type sizes   : int=4/long=8/ptr=8/word=8
+Initializing STM
+Adding 16384 entries to set
+Set size     : 16384
+Creating thread 0
+STARTING...
+STOPPING...
+Thread 0
+  #add        : 7869
+    #added    : 3951
+  #remove     : 7797
+    #removed  : 3950
+  #contains   : 192
+  #found      : 93
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Set size      : 16385 (expected: 16385)
+Duration      : 10000 (ms)
+#txs          : 15858 (1585.800000 / s)
+#read txs     : 7957 (795.700000 / s)
+  #contains   : 192 (19.200000 / s)
+#eff. upd rate: 49.823433 
+#update txs   : 7901 (790.100000 / s)
+  #upd trials : 15666 (1566.600000 / s)
+#aborts       : 0 (0.000000 / s)
+  #lock-r     : 0 (0.000000 / s)
+  #lock-w     : 0 (0.000000 / s)
+  #val-r      : 0 (0.000000 / s)
+  #val-w      : 0 (0.000000 / s)
+  #val-c      : 0 (0.000000 / s)
+  #inv-mem    : 0 (0.000000 / s)
+Max retries   : 0
+Process:         smart-pointer-lazy-list [61802]
+Path:            /Users/USER/Desktop/*/smart-pointer-lazy-list
+Load Address:    0x1010f6000
+Identifier:      smart-pointer-lazy-list
+Version:         ???
+Code Type:       X86-64
+Parent Process:  leaks [61801]
+
+Date/Time:       2021-10-29 22:55:04.347 -0400
+Launch Time:     2021-10-29 22:54:50.509 -0400
+OS Version:      Mac OS X 10.15.7 (19H1419)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         3112K
+Physical footprint (peak):  3112K
+----
+
+leaks Report Version: 4.0
+Process 61802: 159 nodes malloced for 12 KB
+Process 61802: 0 leaks for 0 total leaked bytes.
+

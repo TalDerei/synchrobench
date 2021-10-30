@@ -1,0 +1,86 @@
+Set type     : lazy linked list
+Length       : 10000
+Initial size : 2048
+Thread num   : 2
+Value range  : 4096
+Seed         : 0
+Update rate  : 50
+Lock alg     : 2
+Alternate    : 0
+Effective    : 1
+Type sizes   : int=4/long=8/ptr=8/word=8
+Initializing STM
+Adding 2048 entries to set
+Set size     : 2048
+Creating thread 0
+Creating thread 1
+STARTING...
+STOPPING...
+Thread 0
+  #add        : 38844
+    #added    : 19450
+  #remove     : 39041
+    #removed  : 19449
+  #contains   : 109
+  #found      : 52
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 1
+  #add        : 38153
+    #added    : 19107
+  #remove     : 38474
+    #removed  : 19106
+  #contains   : 69
+  #found      : 32
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Set size      : 2050 (expected: 2050)
+Duration      : 10001 (ms)
+#txs          : 154690 (15467.453255 / s)
+#read txs     : 77578 (7757.024298 / s)
+  #contains   : 178 (17.798220 / s)
+#eff. upd rate: 49.849376 
+#update txs   : 77112 (7710.428957 / s)
+  #upd trials : 154512 (15449.655034 / s)
+#aborts       : 0 (0.000000 / s)
+  #lock-r     : 0 (0.000000 / s)
+  #lock-w     : 0 (0.000000 / s)
+  #val-r      : 0 (0.000000 / s)
+  #val-w      : 0 (0.000000 / s)
+  #val-c      : 0 (0.000000 / s)
+  #inv-mem    : 0 (0.000000 / s)
+Max retries   : 0
+Process:         smart-pointer-lazy-list [61782]
+Path:            /Users/USER/Desktop/*/smart-pointer-lazy-list
+Load Address:    0x109448000
+Identifier:      smart-pointer-lazy-list
+Version:         ???
+Code Type:       X86-64
+Parent Process:  leaks [61781]
+
+Date/Time:       2021-10-29 22:53:36.191 -0400
+Launch Time:     2021-10-29 22:53:26.094 -0400
+OS Version:      Mac OS X 10.15.7 (19H1419)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         896K
+Physical footprint (peak):  896K
+----
+
+leaks Report Version: 4.0
+Process 61782: 159 nodes malloced for 12 KB
+Process 61782: 0 leaks for 0 total leaked bytes.
+

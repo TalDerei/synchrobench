@@ -1,0 +1,125 @@
+Set type     : lazy linked list
+Length       : 10000
+Initial size : 4096
+Thread num   : 4
+Value range  : 8192
+Seed         : 0
+Update rate  : 50
+Lock alg     : 2
+Alternate    : 0
+Effective    : 1
+Type sizes   : int=4/long=8/ptr=8/word=8
+initializing URCU finished, node_size: 192
+Initializing STM
+Adding 4096 entries to set
+Set size     : 4096
+Creating thread 0
+Creating thread 1
+Creating thread 2
+Creating thread 3
+STARTING...
+STOPPING...
+Thread 0
+  #add        : 261570
+    #added    : 130858
+  #remove     : 262653
+    #removed  : 130857
+  #contains   : 56
+  #found      : 26
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 1
+  #add        : 261429
+    #added    : 131083
+  #remove     : 263071
+    #removed  : 131082
+  #contains   : 350
+  #found      : 183
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 2
+  #add        : 261929
+    #added    : 131125
+  #remove     : 262692
+    #removed  : 131125
+  #contains   : 538
+  #found      : 273
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 3
+  #add        : 262678
+    #added    : 131500
+  #remove     : 263640
+    #removed  : 131499
+  #contains   : 174
+  #found      : 83
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Set size      : 4099 (expected: 4099)
+Duration      : 10004 (ms)
+#txs          : 2100780 (209994.002399 / s)
+#read txs     : 1051651 (105123.050780 / s)
+  #contains   : 1118 (111.755298 / s)
+#eff. upd rate: 49.939975 
+#update txs   : 1049129 (104870.951619 / s)
+  #upd trials : 2099662 (209882.247101 / s)
+#aborts       : 0 (0.000000 / s)
+  #lock-r     : 0 (0.000000 / s)
+  #lock-w     : 0 (0.000000 / s)
+  #val-r      : 0 (0.000000 / s)
+  #val-w      : 0 (0.000000 / s)
+  #val-c      : 0 (0.000000 / s)
+  #inv-mem    : 0 (0.000000 / s)
+Max retries   : 0
+Process:         epoch-lazy-list [61669]
+Path:            /Users/USER/Desktop/*/epoch-lazy-list
+Load Address:    0x10504d000
+Identifier:      epoch-lazy-list
+Version:         ???
+Code Type:       X86-64
+Parent Process:  leaks [61668]
+
+Date/Time:       2021-10-29 22:48:16.640 -0400
+Launch Time:     2021-10-29 22:48:06.496 -0400
+OS Version:      Mac OS X 10.15.7 (19H1419)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         1028K
+Physical footprint (peak):  1068K
+----
+
+leaks Report Version: 4.0
+Process 61669: 170 nodes malloced for 14 KB
+Process 61669: 4 leaks for 128 total leaked bytes.
+
+    4 (128 bytes) << TOTAL >>
+      1 (32 bytes) ROOT LEAK: 0x7fc6fbe07a50 [32]
+      1 (32 bytes) ROOT LEAK: 0x7fc6fc825c80 [32]
+      1 (32 bytes) ROOT LEAK: 0x7fc6fc825cb0 [32]
+      1 (32 bytes) ROOT LEAK: 0x7fc6fc9040d0 [32]
+

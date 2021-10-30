@@ -1,0 +1,118 @@
+Set type     : lazy linked list
+Length       : 10000
+Initial size : 16384
+Thread num   : 4
+Value range  : 32768
+Seed         : 0
+Update rate  : 50
+Lock alg     : 2
+Alternate    : 0
+Effective    : 1
+Type sizes   : int=4/long=8/ptr=8/word=8
+Initializing STM
+Adding 16384 entries to set
+Set size     : 16384
+Creating thread 0
+Creating thread 1
+Creating thread 2
+Creating thread 3
+STARTING...
+STOPPING...
+Thread 0
+  #add        : 2855
+    #added    : 1442
+  #remove     : 2932
+    #removed  : 1441
+  #contains   : 3
+  #found      : 2
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 1
+  #add        : 2857
+    #added    : 1440
+  #remove     : 2923
+    #removed  : 1440
+  #contains   : 1
+  #found      : 0
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 2
+  #add        : 2584
+    #added    : 1277
+  #remove     : 2630
+    #removed  : 1276
+  #contains   : 0
+  #found      : 0
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 3
+  #add        : 2857
+    #added    : 1443
+  #remove     : 2915
+    #removed  : 1443
+  #contains   : 17
+  #found      : 3
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Set size      : 16386 (expected: 16386)
+Duration      : 10002 (ms)
+#txs          : 22574 (2256.948610 / s)
+#read txs     : 11372 (1136.972605 / s)
+  #contains   : 21 (2.099580 / s)
+#eff. upd rate: 49.623461 
+#update txs   : 11202 (1119.976005 / s)
+  #upd trials : 22553 (2254.849030 / s)
+#aborts       : 0 (0.000000 / s)
+  #lock-r     : 0 (0.000000 / s)
+  #lock-w     : 0 (0.000000 / s)
+  #val-r      : 0 (0.000000 / s)
+  #val-w      : 0 (0.000000 / s)
+  #val-c      : 0 (0.000000 / s)
+  #inv-mem    : 0 (0.000000 / s)
+Max retries   : 0
+Process:         smart-pointer-lazy-list [61809]
+Path:            /Users/USER/Desktop/*/smart-pointer-lazy-list
+Load Address:    0x1062f4000
+Identifier:      smart-pointer-lazy-list
+Version:         ???
+Code Type:       X86-64
+Parent Process:  leaks [61808]
+
+Date/Time:       2021-10-29 22:55:32.091 -0400
+Launch Time:     2021-10-29 22:55:18.255 -0400
+OS Version:      Mac OS X 10.15.7 (19H1419)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         3100K
+Physical footprint (peak):  3104K
+----
+
+leaks Report Version: 4.0
+Process 61809: 159 nodes malloced for 12 KB
+Process 61809: 0 leaks for 0 total leaked bytes.
+

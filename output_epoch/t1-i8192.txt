@@ -1,0 +1,73 @@
+Set type     : lazy linked list
+Length       : 10000
+Initial size : 8192
+Thread num   : 1
+Value range  : 16384
+Seed         : 0
+Update rate  : 50
+Lock alg     : 2
+Alternate    : 0
+Effective    : 1
+Type sizes   : int=4/long=8/ptr=8/word=8
+initializing URCU finished, node_size: 192
+Initializing STM
+Adding 8192 entries to set
+Set size     : 8192
+Creating thread 0
+STARTING...
+STOPPING...
+Thread 0
+  #add        : 134147
+    #added    : 66980
+  #remove     : 134219
+    #removed  : 66980
+  #contains   : 312
+  #found      : 149
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Set size      : 8192 (expected: 8192)
+Duration      : 10003 (ms)
+#txs          : 268678 (26859.742077 / s)
+#read txs     : 134718 (13467.759672 / s)
+  #contains   : 312 (31.190643 / s)
+#eff. upd rate: 49.858939 
+#update txs   : 133960 (13391.982405 / s)
+  #upd trials : 268366 (26828.551435 / s)
+#aborts       : 0 (0.000000 / s)
+  #lock-r     : 0 (0.000000 / s)
+  #lock-w     : 0 (0.000000 / s)
+  #val-r      : 0 (0.000000 / s)
+  #val-w      : 0 (0.000000 / s)
+  #val-c      : 0 (0.000000 / s)
+  #inv-mem    : 0 (0.000000 / s)
+Max retries   : 0
+Process:         epoch-lazy-list [61678]
+Path:            /Users/USER/Desktop/*/epoch-lazy-list
+Load Address:    0x108f76000
+Identifier:      epoch-lazy-list
+Version:         ???
+Code Type:       X86-64
+Parent Process:  leaks [61677]
+
+Date/Time:       2021-10-29 22:48:27.114 -0400
+Launch Time:     2021-10-29 22:48:16.675 -0400
+OS Version:      Mac OS X 10.15.7 (19H1419)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         1592K
+Physical footprint (peak):  1600K
+----
+
+leaks Report Version: 4.0
+Process 61678: 164 nodes malloced for 13 KB
+Process 61678: 1 leak for 16 total leaked bytes.
+
+    1 (16 bytes) ROOT LEAK: 0x7f9e5e607960 [16]
+

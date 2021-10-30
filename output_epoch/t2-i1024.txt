@@ -1,0 +1,91 @@
+Set type     : lazy linked list
+Length       : 10000
+Initial size : 1024
+Thread num   : 2
+Value range  : 2048
+Seed         : 0
+Update rate  : 50
+Lock alg     : 2
+Alternate    : 0
+Effective    : 1
+Type sizes   : int=4/long=8/ptr=8/word=8
+initializing URCU finished, node_size: 192
+Initializing STM
+Adding 1024 entries to set
+Set size     : 1024
+Creating thread 0
+Creating thread 1
+STARTING...
+STOPPING...
+Thread 0
+  #add        : 1854286
+    #added    : 925484
+  #remove     : 1848077
+    #removed  : 925484
+  #contains   : 847
+  #found      : 414
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Thread 1
+  #add        : 1850337
+    #added    : 923594
+  #remove     : 1844104
+    #removed  : 923594
+  #contains   : 1372
+  #found      : 660
+  #aborts     : 0
+    #lock-r   : 0
+    #lock-w   : 0
+    #val-r    : 0
+    #val-w    : 0
+    #val-c    : 0
+    #inv-mem  : 0
+  Max retries : 0
+Set size      : 1024 (expected: 1024)
+Duration      : 10000 (ms)
+#txs          : 7399023 (739902.300000 / s)
+#read txs     : 3700867 (370086.700000 / s)
+  #contains   : 2219 (221.900000 / s)
+#eff. upd rate: 49.981680 
+#update txs   : 3698156 (369815.600000 / s)
+  #upd trials : 7396804 (739680.400000 / s)
+#aborts       : 0 (0.000000 / s)
+  #lock-r     : 0 (0.000000 / s)
+  #lock-w     : 0 (0.000000 / s)
+  #val-r      : 0 (0.000000 / s)
+  #val-w      : 0 (0.000000 / s)
+  #val-c      : 0 (0.000000 / s)
+  #inv-mem    : 0 (0.000000 / s)
+Max retries   : 0
+Process:         epoch-lazy-list [61629]
+Path:            /Users/USER/Desktop/*/epoch-lazy-list
+Load Address:    0x10f1e3000
+Identifier:      epoch-lazy-list
+Version:         ???
+Code Type:       X86-64
+Parent Process:  leaks [61628]
+
+Date/Time:       2021-10-29 22:47:05.543 -0400
+Launch Time:     2021-10-29 22:46:55.499 -0400
+OS Version:      Mac OS X 10.15.7 (19H1419)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         768K
+Physical footprint (peak):  784K
+----
+
+leaks Report Version: 4.0
+Process 61629: 166 nodes malloced for 13 KB
+Process 61629: 2 leaks for 32 total leaked bytes.
+
+    2 (32 bytes) << TOTAL >>
+      1 (16 bytes) ROOT LEAK: 0x7f9420507190 [16]
+      1 (16 bytes) ROOT LEAK: 0x7f942100ad40 [16]
+
